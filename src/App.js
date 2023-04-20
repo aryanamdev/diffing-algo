@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import DiffViewer from "react-diff-viewer";
+import "./App.css";
 
 function App() {
+  const [oldText, setOldText] = useState("");
+  const [newText, setNewText] = useState("");
+
+  const diffViewerStyles = {
+    variables: {
+      light: {
+        diffViewerBackground: "#f8f8f8",
+        addedBackground: "#e6ffed",
+        addedGutterBackground: "#cdffd8",
+        removedBackground: "#ffeef0",
+        removedGutterBackground: "#ffdce0",
+      },
+    },
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Diffing Algorithm in React</h1>
+      <div className="input-container">
+        <textarea
+          placeholder="Enter old text here"
+          value={oldText}
+          onChange={(e) => setOldText(e.target.value)}
+        />
+        <textarea
+          placeholder="Enter new text here"
+          value={newText}
+          onChange={(e) => setNewText(e.target.value)}
+        />
+      </div>
+      <DiffViewer
+        oldValue={oldText}
+        useDarkTheme={true}
+        newValue={newText}
+        styles={diffViewerStyles}
+      />
     </div>
   );
 }
